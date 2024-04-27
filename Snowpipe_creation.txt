@@ -1,0 +1,16 @@
+create pipe "DEMO_DB_FOR_AWS_INTEGRATION"."DEMO_SCHEME_AWS_INT".DEMO_PIPE
+AUTO_INGEST = TRUE
+AS
+COPY INTO "DEMO_DB_FOR_AWS_INTEGRATION"."DEMO_SCHEME_AWS_INT"."EMPLOYEE"
+FROM @"DEMO_DB_FOR_AWS_INTEGRATION"."DEMO_SCHEME_AWS_INT"."DEMO_STAGE";
+
+SHOW PIPES
+
+
+1. After creating pipe run "show pipes" and copy Notification_channel ARN
+
+2.S3 > BUCKETS > PROPERTIES - create event notification - (name = <name>, suffix = .csv, destination = SQS queue , 
+  enter SQS queue arn with Notification_channel ARN copied from snowflake . create notification
+
+ALTER PIPE DEMO_PIPE
+SET PIPE_EXECUTION_PAUSED = FALSE
